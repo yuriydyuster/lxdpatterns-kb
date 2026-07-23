@@ -28,20 +28,23 @@ This repository must not contain:
 
 ## Content domains
 
-Documents are organised into three primary domains:
+The initial Notion outline is represented by six content domains:
 
 ```text
-activities/   Individual learning activities and learner actions
-flows/        Sequences, formats, and structures combining activities
-concepts/     Theories, models, principles, and analytical frameworks
+activities/       Individual learning activities and learner actions
+flows/            Sequences, formats, and structures combining activities
+nudges/           Engagement, access, notification, and commercial patterns
+concepts/         Theories, models, principles, and analytical frameworks
+gamifications/    Gamification mechanics and motivational patterns
+interfaces/       Interface and navigation patterns
 ```
 
-Supporting directories may include:
+Supporting directories include:
 
 ```text
-assets/       Images and other licensed content assets
-templates/    Authoring templates for new documents
-docs/         Editorial and markup documentation
+assets/            Images and other licensed content assets
+templates/         Authoring templates for new documents
+docs/              Editorial and markup documentation
 ```
 
 ## Source format
@@ -52,16 +55,11 @@ docs/         Editorial and markup documentation
 2. Standard Markdown for prose, headings, lists, links, tables, and quotations.
 3. A small set of semantic Markdoc tags for blocks with a defined content role.
 
-Example semantic roles include:
-
-- `checklist`
-- `example`
-- `evidence`
-- `pitfall`
-- `references`
-- `related-patterns`
-
 Semantic markup describes meaning rather than visual presentation. The public content model must never expose React component names, Tailwind classes, shadcn/ui primitives, layout coordinates, colours, or other renderer-specific details.
+
+## Content fidelity
+
+During migration, titles, headings, wording, capitalization, and checklist text from the source must be preserved. Editorial normalization is a separate reviewed change and must not be combined with structural migration.
 
 ## Content contract
 
