@@ -4,93 +4,187 @@ Instructions for human contributors and AI agents working in this repository.
 
 ## Repository purpose
 
-`lxdpatterns-kb` is the public, canonical source of the LXD Patterns knowledge base. It contains authored learning-design content and related editorial documentation. It does not contain the website application or rendering implementation.
+`lxdpatterns-kb` is the public, canonical source of the LXD Patterns knowledge base. It owns authored `.mdoc` documents, public assets, templates, editorial guidance, and the semantic authoring contract. It does not own the website application or rendering implementation.
 
 ## Core rules
 
-1. **Keep the repository content-only.** Do not add Next.js, React, Tailwind CSS, shadcn/ui, deployment code, application configuration, or runtime dependencies.
-2. **Use `.mdoc` as the source format.** Write ordinary Markdown wherever possible and use only documented semantic Markdoc tags where a block has a special content role.
-3. **Describe meaning, not presentation.** Prefer tags such as `checklist`, `example`, `evidence`, `pitfall`, and `references`. Never introduce presentation-specific markup such as `blue-card`, `two-column-grid`, `shadcn-accordion`, or React component names.
-4. **Preserve renderer independence.** A document should remain understandable and reusable outside the official website.
-5. **Do not fabricate evidence.** Research claims, definitions, historical statements, and statistics must be supported by reliable sources. Never invent references, authors, publications, URLs, or quotations.
-6. **Respect copyright.** Contribute original writing, openly licensed material compatible with CC BY 4.0, or short quotations used with proper attribution and a lawful basis.
-7. **Keep changes reviewable.** Avoid unrelated rewrites, bulk formatting, or structural migrations in the same contribution as a substantive content change.
+1. **Keep the repository content-only.** Do not add Next.js, React, Tailwind CSS, shadcn/ui, deployment secrets, application configuration, or runtime dependencies.
+2. **Use `.mdoc` as the source format.** Use ordinary Markdown for prose and documented semantic Markdoc tags only where content has a defined role.
+3. **Describe meaning, not presentation.** Never introduce tags or fields such as `blue-card`, `two-column-grid`, `accordion`, React component names, CSS classes, or layout coordinates.
+4. **Treat the content schema as a public contract.** Coordinate syntax changes with `lxdpatterns-web`, provide migration guidance, and update public documentation in the same change.
+5. **Preserve migration fidelity.** When converting a Notion-derived draft, preserve its title, headings, wording, capitalisation, and checklist text. Do not combine structural migration with unsolicited editorial rewriting.
+6. **Do not fabricate content.** Never invent sources, quotations, evidence, statistics, relationships, authors, publications, or URLs.
+7. **Respect copyright and licensing.** Contribute original writing, compatible openly licensed material, or appropriately limited quotations with attribution.
+8. **Keep changes reviewable.** Avoid unrelated rewrites, bulk formatting, or broad migrations in the same pull request as a focused content change.
 
-## Content areas
+## Content domains
 
-Store documents according to their primary role:
+The directory and frontmatter `category` must match:
 
-- `activities/` — individual learner actions or learning activity types
-- `flows/` — sequences, formats, and facilitation structures combining activities
-- `concepts/` — theories, principles, models, and analytical frameworks
+| Directory | Category |
+| --- | --- |
+| `activities/` | `activity` |
+| `flows/` | `flow` |
+| `nudges/` | `nudge` |
+| `concepts/` | `concept` |
+| `gamifications/` | `gamification` |
+| `interfaces/` | `interface` |
 
-When a topic could fit more than one area, choose the category that best describes how a practitioner would use the page and connect it to related pages through semantic references.
+Choose the domain that best represents how a practitioner will use the pattern. Related patterns do not change the primary domain.
 
-## Document conventions
+## Required document anatomy
 
-Until category-specific templates and schemas are introduced, every document should have:
+Every new or substantively updated pattern must contain:
 
-- a clear, unique title
-- a concise summary
-- one primary category
-- a stable, readable slug derived from the filename
-- enough context for a practitioner to understand when and why the pattern matters
-- explicit references for claims that depend on external evidence
+- frontmatter with `title`, `category`, and explicit `status`;
+- a stable slug derived from the `.mdoc` filename;
+- a concise `summary` when the pattern is developed enough to describe;
+- `order` when its category sequence is known;
+- a valid `icon` when a pattern-specific icon is required;
+- one or more semantic `pattern-list` sections when the page contains structured guidance;
+- footnote definitions for external sources used in the text;
+- a `relations` section only when genuine related-pattern links are known.
 
-Use sentence case for headings. Prefer short paragraphs, concrete examples, and actionable checklist items. Avoid unexplained jargon and avoid presenting contested guidance as universal fact.
+The current frontmatter parser accepts single-line scalar values only. Do not use multiline YAML, arrays, objects, folded blocks, or nested YAML structures.
 
-## Semantic markup
+Supported status values are:
 
-Only use semantic tags documented in this repository. If a required content role is missing:
+- `planned` — outline exists but substantive authoring has not started;
+- `draft` — content is incomplete or contains placeholders;
+- `review` — content is ready for editorial or subject-matter review;
+- `stable` — reviewed content suitable for normal publication.
 
-1. describe the authoring need in an issue or pull request;
-2. propose the semantic meaning and allowed content;
-3. avoid specifying visual appearance or a JavaScript implementation;
-4. coordinate the schema change with the web renderer before using the new tag broadly.
+Supported icon names are currently:
 
-The content schema is a public contract. Breaking changes require an explicit migration plan.
+`target`, `route`, `magnet`, `lightbulb`, `trophy`, `panels`, `video`, `file-text`, `headphones`, `list-checks`, and `chart-no-axes-combined`.
 
-## Sources and references
+If `icon` is omitted, the website uses the category icon. New icon names require a coordinated public-contract and renderer change.
 
-Prefer primary research, recognised standards, official documentation, and reputable scholarly or professional sources. Record enough metadata to identify a source reliably. Link to a stable canonical location where possible.
+## Semantic `pattern-list` sections
 
-Distinguish clearly between:
+Use this structure:
 
-- evidence-supported findings
-- practitioner recommendations
-- illustrative examples
-- project-specific editorial judgement
+```mdoc
+{% pattern-list role="checklist" layer="content" %}
+# Section title
+
+## Item title
+
+Item description in ordinary Markdown.
+{% /pattern-list %}
+```
+
+Supported `role` values:
+
+- `checklist` — guidance the reader may select in the UI;
+- `list` — informational items rendered independently, without selectable state.
+
+Supported `layer` values:
+
+- `content` — learning content and pedagogical material;
+- `interactions` — learner controls, behaviours, feedback, and interaction design;
+- `system` — platform, delivery, analytics, permissions, and technical behaviour;
+- `relations` — links to other patterns.
+
+Structural rules:
+
+- a wrapper must contain exactly one meaningful level-one heading for its section title;
+- every level-two heading begins a new item;
+- all Markdown until the next level-two heading belongs to that item description;
+- item descriptions must not contain another level-two heading;
+- wrappers must not be nested;
+- more than one wrapper may use the same layer;
+- omit layers that are not relevant rather than adding empty placeholders;
+- never use Markdown checked state to define UI state.
+
+`content`, `interactions`, and `system` sections become website tabs. `relations` sections are removed from the main flow and populate the Related card.
+
+## Sources and resources
+
+Cite sources with Markdown footnotes. Definitions must be one line and use a Markdown link:
+
+```mdoc
+A supported statement appears here.[^retrieval]
+
+[^retrieval]: [Short source title](https://example.org "Full source description for the tooltip")
+```
+
+The website extracts all definitions in document order and builds the Resources card. The optional quoted link title is used as the fuller source description. Use stable canonical URLs and enough metadata to identify the source.
+
+Prefer primary research, recognised standards, official documentation, and reputable scholarly or professional sources. Distinguish evidence-supported findings from practitioner recommendations, examples, and project-specific editorial judgement.
+
+## Related patterns
+
+Use a `relations` list and reference-style links:
+
+```mdoc
+{% pattern-list role="list" layer="relations" %}
+# Related patterns
+
+## Read an Article
+
+Use [Read an Article][read-an-article] when the material is primarily textual.
+{% /pattern-list %}
+
+[read-an-article]: ./read-an-article
+```
+
+Reference identifiers should normally match the target slug. The current publishing contract resolves `./slug` against the current category. Coordinate renderer support before adding cross-category relation syntax.
+
+A relation item must include a reference-style link in its description; otherwise it will not appear in the Related card.
+
+## Legacy draft compatibility
+
+Many untouched outline drafts still contain five Markdown sections and `- [ ] Check list item` placeholders. The website renders this syntax for migration compatibility, but it is not the current authoring model.
+
+When developing one of these pages:
+
+1. preserve the original item titles and wording;
+2. move structured guidance into `pattern-list` wrappers;
+3. replace placeholder task-list lines with level-two item headings and descriptions;
+4. convert Sources to footnotes;
+5. convert Related to a `relations` wrapper and reference definitions;
+6. remove irrelevant empty sections.
+
+Do not create new legacy-format documents.
 
 ## Assets
 
-Place reusable repository assets under `assets/`. Use descriptive filenames and include source, author, license, and required attribution near the asset or in accompanying metadata. Do not commit assets with uncertain reuse rights.
+Place reusable assets under `assets/`. Use descriptive filenames and record source, author, licence, and required attribution near the asset or in accompanying metadata. Do not commit assets with uncertain reuse rights. Add meaningful alternative text wherever an image is used.
 
 ## Git and contributor attribution
 
-The official website derives contributor information from Git history. Therefore:
+The website derives contributor names and last-updated dates from this repository's Git history. Therefore:
 
-- preserve authorship when moving or splitting documents;
-- avoid squashing multiple people’s authored material into an untraceable replacement where practical;
 - use a consistent Git author identity;
-- do not rewrite published history merely to alter attribution;
-- use `.mailmap` for legitimate identity consolidation when it is introduced.
+- preserve authorship when moving or splitting documents where practical;
+- avoid rewriting published history merely to alter attribution;
+- keep automated formatting changes separate from substantive authorship where possible.
 
-## Validation expectations
+## Validation checklist
 
-Before finalising a change, check that:
+Before finalising a change, verify that:
 
-- frontmatter is valid and follows the current schema;
-- Markdoc tags are recognised and correctly nested;
-- internal links resolve;
-- external references are reachable and accurately described;
-- images have meaningful alternative text where applicable;
-- the document remains understandable as source Markdown;
-- no application-specific syntax has entered the content model.
+- the directory and `category` match;
+- frontmatter uses supported single-line values;
+- `order` is a non-negative integer and reflects the intended category sequence;
+- `icon` is supported or intentionally omitted;
+- every `pattern-list` has a valid `role`, `layer`, level-one title, and at least one meaningful item;
+- wrappers are closed and not nested;
+- internal relation definitions are present and use the documented form;
+- source footnotes are defined, accurate, and reachable;
+- migrated wording has not been silently changed;
+- no renderer-specific syntax has entered the content model;
+- the document remains understandable as source Markdown.
+
+Use the templates under `templates/` and consult [docs/CONTENT_MODEL.md](./docs/CONTENT_MODEL.md) and [docs/PATTERN_FORMAT.md](./docs/PATTERN_FORMAT.md).
 
 ## Relationship to `lxdpatterns-web`
 
-The private `lxdpatterns-web` repository consumes and renders this content. Changes here must not depend on unpublished implementation details in that repository. When a content schema change requires renderer work, document the dependency explicitly and keep the public authoring contract clear.
+The private `lxdpatterns-web` repository checks out this repository during development and builds. It validates metadata, parses semantic sections, derives resources, relations, contributor metadata, ordering, and static routes, then renders the result.
 
-## License
+Changes here must not depend on unpublished implementation details. When authoring needs require a contract change, document the semantic requirement publicly and coordinate the renderer change before broad adoption.
 
-By contributing original content to this repository, contributors agree that their contribution is made available under the repository’s CC BY 4.0 license unless a clearly identified exception applies.
+## Licence
+
+By contributing original content, contributors agree that their contribution is made available under the repository's CC BY 4.0 licence unless a clearly identified exception applies.
