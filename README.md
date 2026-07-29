@@ -2,72 +2,94 @@
 
 An open, collaborative knowledge base of **digital learning experience design patterns**.
 
-This repository is the canonical source for reusable guidance, checklists, examples, and evidence about designing digital learning experiences. Its content is intended for learning experience designers, instructional designers, educators, product teams, researchers, and other contributors interested in improving digital learning.
+This repository is the canonical source for the authored pattern documents, assets, templates, and public authoring contract used by the LXD Patterns website. The private web application consumes this repository at build time; it is not a second source of content.
 
-## Content areas
+## Content domains
 
-The knowledge base is organised into three main areas:
+Every pattern belongs to one of six domains. The directory and the frontmatter `category` value must agree.
 
-- **Activities** — individual learning activities such as watching a video, taking a quiz, reading an article, participating in a discussion, or completing a simulation.
-- **Flows** — sequences and structures that organise multiple activities, including synchronous and asynchronous learning flows and models such as BOPPPS or CARD.
-- **Concepts** — theories, principles, and analytical tools such as constructive alignment, Bloom’s taxonomy, cognitive load, retrieval practice, and feedback.
+| Directory | Frontmatter category | Purpose |
+| --- | --- | --- |
+| `activities/` | `activity` | Individual learner actions and activity types. |
+| `flows/` | `flow` | Sequences, formats, and structures combining activities. |
+| `nudges/` | `nudge` | Prompts that support discovery, entry, return, and continuation. |
+| `concepts/` | `concept` | Theories, models, principles, and analytical frameworks. |
+| `gamifications/` | `gamification` | Progression, feedback, recognition, and motivational mechanics. |
+| `interfaces/` | `interface` | Navigation and visible interface structures. |
 
-## Repository role
-
-This repository contains only the public knowledge base:
-
-- Markdown-based `.mdoc` source documents
-- images and other content assets
-- authoring templates
-- contribution and editorial guidance
-- documentation of the semantic markup vocabulary
-
-It intentionally does **not** contain the website application, React components, deployment configuration, or other product infrastructure. The official website is maintained in a separate private repository and is one possible renderer of this content.
-
-## Authoring model
-
-Documents use ordinary Markdown wherever possible and a small set of semantic Markdoc tags for content with a specific role, such as checklists, examples, evidence, pitfalls, references, and related patterns.
-
-Semantic markup describes **what a block means**, not how it should look. Content must not depend on React, shadcn/ui, Tailwind CSS, or any specific website implementation.
-
-The planned top-level structure is:
+Supporting directories:
 
 ```text
-activities/
-flows/
-concepts/
-assets/
-templates/
-docs/
+assets/       Licensed images and other reusable content assets
+templates/    Starting points for new pattern documents
+docs/         Content-model, format, and editorial documentation
 ```
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for repository boundaries and the content-rendering contract.
+## Pattern document model
+
+Each `.mdoc` file represents one pattern and contains:
+
+1. single-line YAML-style frontmatter;
+2. ordinary Markdown prose where no special semantic role is required;
+3. semantic `{% pattern-list %}` wrappers for structured lists and checklists;
+4. Markdown footnotes for sources;
+5. reference-style links for related patterns.
+
+A structured section uses one level-one heading as the section title and level-two headings as item titles:
+
+```mdoc
+{% pattern-list role="checklist" layer="content" %}
+# Content design
+
+## First checklist item
+
+The item description is ordinary Markdown and may cite a source.[^source]
+{% /pattern-list %}
+
+[^source]: [Short source title](https://example.org "Full source description")
+```
+
+Supported roles are `list` and `checklist`. Supported layers are `content`, `interactions`, `system`, and `relations`.
+
+The website derives presentation and metadata from this semantic source:
+
+- `content`, `interactions`, and `system` sections become layer tabs;
+- `role="checklist"` creates reader-selectable checklist controls, but selected state is never authored in the document;
+- `role="list"` renders every item as a complete informational block;
+- footnote definitions become the Resources card;
+- `relations` sections and reference-style links become the Related card;
+- contributors and the updated date come from this repository's Git history;
+- `order` controls position inside a category and `icon` selects a supported pattern icon.
+
+See [docs/CONTENT_MODEL.md](./docs/CONTENT_MODEL.md) for the complete publishing model and [docs/PATTERN_FORMAT.md](./docs/PATTERN_FORMAT.md) for exact authoring syntax.
+
+## Migration state
+
+Most outline-only drafts still use the original five-section placeholder structure and Markdown task-list syntax. The renderer keeps this legacy syntax readable during migration, but **new patterns and substantively updated patterns must use the semantic `pattern-list` structure**. Do not author checked task-list state.
+
+## Repository boundary
+
+This repository contains only public content and its documentation. It intentionally does **not** contain Next.js, React, Tailwind CSS, shadcn/ui components, deployment secrets, or private application infrastructure. Semantic markup must describe what content means, not how a particular renderer should style it.
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the repository boundary and the KB-to-web lifecycle.
 
 ## Contributing
 
-Contributions are welcome through GitHub pull requests. You may:
+Contributions are welcome through GitHub pull requests. Before editing, read:
 
-- propose a new pattern
-- improve an existing explanation or checklist
-- add examples or evidence
-- correct errors and broken references
-- improve accessibility, clarity, or inclusiveness
-- translate or localise content when localisation support is introduced
+- [AGENTS.md](./AGENTS.md) — mandatory rules for human contributors and AI agents;
+- [docs/CONTENT_MODEL.md](./docs/CONTENT_MODEL.md) — page anatomy and derived website behaviour;
+- [docs/PATTERN_FORMAT.md](./docs/PATTERN_FORMAT.md) — exact frontmatter, list, source, and relation syntax;
+- the matching file under [`templates/`](./templates/) when creating a pattern.
 
-Before contributing, read [AGENTS.md](./AGENTS.md). Additional templates and editorial guidance will be added as the content model is implemented.
-
-Every contribution should be based on original writing or material that you have permission to contribute. Cite reliable sources for factual, research-based, or historical claims.
+Preserve original Notion titles, wording, capitalisation, and item text during structural migration. Editorial correction is a separate reviewed change. Do not fabricate references, relationships, evidence, or quotations.
 
 ## Contributor attribution
 
-The website derives page contributors and last-updated metadata from this repository’s Git history. Use a consistent Git author name and email. A `.mailmap` may later be used to merge aliases belonging to the same contributor.
+The website derives page contributors and last-updated metadata from Git history. Use a consistent Git author name and email, preserve authorship when moving content, and avoid history rewrites made only to change attribution.
 
-## License
+## Licence
 
-Except where otherwise noted, the original content in this repository is licensed under the **Creative Commons Attribution 4.0 International License (CC BY 4.0)**.
+Except where otherwise noted, original content in this repository is licensed under the **Creative Commons Attribution 4.0 International Licence (CC BY 4.0)**. Third-party quotations, images, trademarks, and referenced materials remain subject to their respective rights and licences.
 
-You may share and adapt the material for any purpose, including commercial use, provided that you give appropriate credit, link to the license, and indicate whether changes were made.
-
-See [LICENSE](./LICENSE) for the repository license notice and attribution guidance.
-
-Third-party quotations, images, trademarks, and referenced materials remain subject to their respective rights and licenses.
+See [LICENSE](./LICENSE) for attribution guidance.
