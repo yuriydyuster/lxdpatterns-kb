@@ -2,137 +2,215 @@
 
 ## Overview
 
-`lxdpatterns-kb` is the public, canonical content repository for LXD Patterns. It stores authored knowledge about digital learning experience design independently from any website framework, component library, or deployment platform.
+`lxdpatterns-kb` is the public, canonical content repository for LXD Patterns. It stores authored digital learning experience design patterns independently from any website framework, component library, or deployment platform.
 
-The repository is consumed by the private `lxdpatterns-web` application during its build process. The content repository defines the authoring contract; the web repository implements one renderer of that contract.
+The private `lxdpatterns-web` application checks out a specific revision of this repository during development and production builds. This repository defines the public authoring contract; the web repository implements one renderer of that contract.
 
 ## Repository boundaries
 
-This repository contains:
+This repository owns:
 
-- `.mdoc` source documents
-- content assets
-- authoring templates
-- contribution guidance
-- editorial documentation
-- the public semantic markup specification
+- `.mdoc` pattern documents;
+- content-domain directories and ordering;
+- public content assets and attribution information;
+- authoring templates;
+- editorial and contribution guidance;
+- the public semantic markup specification;
+- Git history used for contributor attribution.
 
-This repository must not contain:
+It must not contain:
 
-- Next.js or React application code
-- shadcn/ui components
-- Tailwind CSS configuration
-- website routing or deployment logic
-- application secrets or private infrastructure
-- presentation-specific markup
+- Next.js or React application code;
+- Tailwind CSS or shadcn/ui components;
+- website route or layout implementation;
+- deployment credentials or private infrastructure;
+- presentation-specific markup.
 
 ## Content domains
 
-The initial Notion outline is represented by six content domains:
+The publishing application requires six domain directories:
 
 ```text
 activities/       Individual learning activities and learner actions
 flows/            Sequences, formats, and structures combining activities
-nudges/           Engagement, access, notification, and commercial patterns
+nudges/           Engagement, access, notification, and continuation prompts
 concepts/         Theories, models, principles, and analytical frameworks
-gamifications/    Gamification mechanics and motivational patterns
+gamifications/    Progression, feedback, recognition, and motivational mechanics
 interfaces/       Interface and navigation patterns
 ```
 
-Supporting directories include:
+Each directory maps to one frontmatter category:
 
 ```text
-assets/            Images and other licensed content assets
-templates/         Authoring templates for new documents
-docs/              Editorial and markup documentation
+activities       → activity
+flows            → flow
+nudges           → nudge
+concepts         → concept
+gamifications    → gamification
+interfaces       → interface
+```
+
+A build fails when a document's category does not match its directory.
+
+Supporting directories are:
+
+```text
+assets/           Licensed images and other reusable assets
+templates/        Starting points for each pattern domain
+docs/             Content-model and authoring documentation
 ```
 
 ## Source format
 
-`.mdoc` files are the single source of truth. Documents use:
+`.mdoc` files are the single source of truth. A document has three logical parts:
 
-1. YAML frontmatter for structured page metadata.
-2. Standard Markdown for prose, headings, lists, links, tables, and quotations.
-3. A small set of semantic Markdoc tags for blocks with a defined content role.
+1. **Frontmatter** — page metadata such as title, category, status, summary, order, and icon.
+2. **Semantic sections** — `{% pattern-list %}` wrappers that identify structured guidance by role and layer.
+3. **Ordinary Markdown** — prose outside wrappers, inline links, quotations, tables, source footnotes, and link definitions.
 
-Semantic markup describes meaning rather than visual presentation. The public content model must never expose React component names, Tailwind classes, shadcn/ui primitives, layout coordinates, colours, or other renderer-specific details.
+The current frontmatter implementation accepts single-line scalar values. The public contract must not assume general-purpose YAML features until the consuming implementation explicitly supports them.
 
-## Content fidelity
+## Semantic section model
 
-During migration, titles, headings, wording, capitalization, and checklist text from the source must be preserved. Editorial normalization is a separate reviewed change and must not be combined with structural migration.
+A `pattern-list` wrapper carries two attributes:
 
-## Content contract
+- `role`: `list` or `checklist`;
+- `layer`: `content`, `interactions`, `system`, or `relations`.
 
-The content schema is a public interface between authors and renderers. Each supported frontmatter field and semantic tag should have:
+Its body contains:
 
-- a documented purpose
-- defined required and optional attributes
-- rules for allowed child content
-- validation behaviour
-- a stable semantic meaning
+- one level-one heading as the section title;
+- level-two headings as item titles;
+- the Markdown between item headings as each item description.
 
-Schema changes must be backwards-compatible where practical. Breaking changes require:
+The semantic meaning is stable even when presentation changes:
+
+- `checklist` means reader-selectable guidance; selected state belongs to the UI, never the document;
+- `list` means informational items without selectable state;
+- `content`, `interactions`, and `system` identify design layers;
+- `relations` identifies links to other patterns.
+
+Wrappers cannot be nested. More than one wrapper may use the same layer. Empty or irrelevant layers should be omitted.
+
+## Derived publishing data
+
+Several parts of the website are derived rather than authored as separate fields.
+
+### Resources
+
+Markdown footnote definitions are extracted from the whole document in definition order:
+
+```mdoc
+[^source]: [Short title](https://example.org "Full description")
+```
+
+The short title, URL, and optional description populate the Resources card. Inline `[^source]` references become numbered links to that card.
+
+### Related patterns
+
+A `relations` section uses reference-style links and definitions:
+
+```mdoc
+[related-pattern]: ./related-pattern
+```
+
+Relation items populate the Related card and are not shown as a normal content tab. The current contract resolves `./slug` within the current category.
+
+### Contributors and updated date
+
+Contributor names and the latest content update date are derived from this repository's Git history for each source file. Git history is therefore part of the publishing data model.
+
+### Ordering and icons
+
+`order` controls the sequence of patterns inside a category. Patterns without an order follow ordered patterns and are sorted by title. `icon` selects a supported public icon name; when omitted, the category icon is used.
+
+## Rendering lifecycle
+
+The official website currently follows this lifecycle:
+
+```text
+Checkout a configured lxdpatterns-kb revision
+        ↓
+Confirm all six domain directories exist
+        ↓
+Discover .mdoc files
+        ↓
+Parse and validate frontmatter
+        ↓
+Confirm directory/category agreement and icon validity
+        ↓
+Extract pattern-list sections, footnotes, and link definitions
+        ↓
+Derive resources, relations, ordering, and Git metadata
+        ↓
+Render item descriptions and remaining Markdown with Markdoc
+        ↓
+Generate /patterns/[category]/[slug] static routes
+        ↓
+Deploy the static application
+```
+
+The website presents available `content`, `interactions`, and `system` layers as tabs. Checklist sections are interactive client-side islands; the rest of the page remains server-rendered or statically generated.
+
+## Content fidelity and migration
+
+The initial Notion outline was migrated into `.mdoc` files before the semantic section model was implemented. Many untouched drafts therefore retain five placeholder Markdown sections and task-list lines.
+
+This legacy syntax remains readable during migration, but it is not the target authoring model. When a pattern is developed or structurally migrated:
+
+1. preserve original titles, headings, wording, capitalisation, and item text;
+2. convert structured sections to `pattern-list` wrappers;
+3. use level-two headings for item titles;
+4. convert Sources into footnotes;
+5. convert Related into a `relations` section and reference definitions;
+6. remove irrelevant empty placeholders.
+
+Editorial normalisation must be reviewed separately from structural migration.
+
+## Public content contract
+
+Every supported field and semantic construct must have:
+
+- a documented purpose;
+- defined required and optional values;
+- rules for allowed child content;
+- known validation behaviour;
+- stable semantic meaning;
+- a migration path when changed.
+
+Breaking changes require:
 
 1. an explicit rationale;
 2. coordinated renderer support;
 3. a migration plan for existing documents;
-4. updated public authoring documentation.
+4. updated `AGENTS.md`, templates, and documentation;
+5. validation against representative legacy and semantic documents.
 
-## Rendering lifecycle
+See [docs/CONTENT_MODEL.md](./docs/CONTENT_MODEL.md) and [docs/PATTERN_FORMAT.md](./docs/PATTERN_FORMAT.md).
 
-The official website follows this lifecycle:
+## Validation responsibility
 
-```text
-Public content repository
-        ↓
-Checkout during web build
-        ↓
-Validate frontmatter and Markdoc structure
-        ↓
-Parse `.mdoc` into a semantic document tree
-        ↓
-Map semantic nodes to project-specific React components
-        ↓
-Generate static pages, search data, and metadata
-```
+This repository documents the rules and provides real content fixtures. The consuming web application performs executable validation during content sync and static generation.
 
-The web application may use shadcn/ui internally, but the content contract remains independent of that implementation.
+Current validation covers:
 
-## Contributor metadata
+- presence of all six domain directories;
+- presence of `.mdoc` patterns;
+- required and typed frontmatter values;
+- supported category and status values;
+- directory/category agreement;
+- non-negative numeric order values;
+- supported icon names;
+- valid `pattern-list` roles, layers, and section titles;
+- Markdoc validation for rendered Markdown.
 
-Page contributors and last-updated information are derived from this repository’s Git history during the website build.
-
-The renderer should:
-
-- inspect file history with rename tracking where practical;
-- normalise contributor identities using `.mailmap` when introduced;
-- distinguish meaningful content authorship from automated or formatting-only changes where possible;
-- preserve links from rendered pages to their canonical source files.
-
-Git history is therefore part of the publishing data model and should be preserved responsibly.
-
-## Validation
-
-The consuming web application is responsible for executable validation, while this repository contains the public rules and fixtures required to understand that validation.
-
-Validation should cover:
-
-- required and typed frontmatter
-- supported document categories
-- valid semantic tags and attributes
-- allowed nesting and child content
-- unique stable slugs
-- internal links and related-pattern references
-- source and asset metadata
-- accessible alternative text where applicable
-
-A content change must fail publication when it violates the current public contract.
+Internal relation existence, complete YAML semantics, deep asset validation, and comprehensive rename-aware contributor analysis are not yet guaranteed by the current implementation. Documentation must not claim those checks exist until they are implemented.
 
 ## Repository integration
 
 The repositories remain independent rather than using a Git submodule or publishing content as an npm package.
 
-For local development, the web application may read a sibling checkout:
+For local development, the web application can read a sibling checkout:
 
 ```text
 workspace/
@@ -140,10 +218,12 @@ workspace/
 └── lxdpatterns-web/
 ```
 
-In CI, the web pipeline checks out both repositories, including sufficient knowledge-base Git history to generate contributor metadata. A merge to the content repository should trigger validation and a rebuild of the official website.
+In normal builds, the web application's content sync script clones this repository into `.content/lxdpatterns-kb`. The selected URL, branch or tag, and Git depth are configurable. Sufficient Git history should be retained for contributor metadata.
+
+A content-only merge must trigger a new web build through the deployment integration; it does not modify the private web repository.
 
 ## Licensing boundary
 
 Original content in this repository is licensed under CC BY 4.0 unless an exception is clearly identified. Third-party quotations, images, trademarks, and referenced materials retain their respective rights.
 
-The private website implementation is not covered by this repository’s license. Reuse of the public content does not grant access to or rights in the official web application.
+The private website implementation is licensed separately. Reuse of the public content does not grant access to or rights in the application source.
