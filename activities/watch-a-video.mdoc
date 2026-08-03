@@ -47,6 +47,8 @@ A brilliant example of the extremely short but still speaking out intro in instr
 
 Briefly explain the video’s purpose, relevance, intended audience and any required prior knowledge. Use language and examples appropriate to the learners, and avoid repeating the video’s opening narration.[^pretraining]
 
+ When the same video is reused across different courses or activities, tailor the introduction to place it in the current learning context and emphasise its specific value for that use.
+
 [^pretraining]: [The pre-training principle](https://doi.org/10.1017/CBO9781139547369.017 "Mayer, R. E., & Pilegard, C. (2014). Principles for Managing Essential Processing in Multimedia Learning: Segmenting, Pre-training, and Modality Principles. In The Cambridge Handbook of Multimedia Learning, 2nd ed. Cambridge University Press.")
 
 
@@ -125,61 +127,200 @@ Adapt terminology, examples, units, cultural references and on-screen text where
 {% pattern-list role="checklist" layer="interactions" %}
 # Interactions design
 
-## Show the length of video
+## Video duration is shown before playback
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+Display the video’s total running time before the learner starts it, so they can assess its relevance and plan when to watch it. If pauses, exercises or reflection are expected, show the estimated total activity time separately.[^mooc]
 
-## Longer videos have time codes with active links
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+## Longer videos include linked timestamps or chapters
 
-## The playback speed is easy manageable (slower-faster)
+Divide longer or multi-topic videos into meaningful sections with descriptive labels and links to their starting points. Chapters help learners understand the structure, locate relevant content and return to specific explanations without searching through the entire video.[^video-contents]
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+Align chapter boundaries with conceptual transitions rather than arbitrary time intervals. Ensure timestamps and chapter controls are accessible by keyboard and assistive technologies.
 
-## Quality is manageable
+[^video-contents]: [Interactive tables of contents in educational videos](https://doi.org/10.1111/bjet.13164 "Cojean, S., & Jamet, E. (2022). Does an Interactive Table of Contents Promote Learning from Videos? A Study of Consultation Strategies and Learning Outcomes. British Journal of Educational Technology, 53(2), 269–285.")
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+## Playback speed is easy to adjust
 
-## Navigation through the video is available: mouse, touch screen, keyboard
+Allow learners to slow down or speed up the video using clearly labelled, keyboard-accessible controls. Provide the normal 1× rate and a practical range of slower and faster options while preserving the natural pitch and intelligibility of speech.[^media-controls]
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+Slower playback can help non-native speakers process unfamiliar vocabulary, accents and sentence structures. Do not force accelerated playback: faster speeds can save time but may reduce learning performance, particularly with dense or unfamiliar material.[^non-native-speed], [^playback-speed]
 
-## The default width of the video is enough to read text elements on the screen
+[^media-controls]: [Media accessibility user requirements](https://www.w3.org/WAI/PF/media-accessibility-reqs/ "World Wide Web Consortium. Media Accessibility User Requirements.")
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+[^non-native-speed]: [Accent and speech-rate effects in English as a lingua franca](https://doi.org/10.1016/j.system.2014.07.015 "Matsuura, H., Chiba, R., Mahoney, S., & Rilling, S. (2014). Accent and Speech Rate Effects in English as a Lingua Franca. System, 46, 143–150.")
+
+[^playback-speed]: [Increasing video lecture playback speed can impair test performance](https://doi.org/10.1007/s10648-025-10003-9 "Tharumalingam, T., Roberts, B. R. T., Fawcett, J. M., & Risko, E. F. (2025). Increasing Video Lecture Playback Speed Can Impair Test Performance: A Meta-analysis. Educational Psychology Review, 37, Article 35.")
+
+## Video quality adapts to available bandwidth and can be adjusted
+
+Use adaptive bitrate streaming to maintain stable playback as network conditions change, and allow learners to select the video quality manually when needed. Provide multiple quality levels suitable for different devices, connection speeds and data limits.[^adaptive-streaming], [^stream-quality]
+
+Ensure that essential text, diagrams, interface details and demonstrations remain legible at every supported quality level. Where low-resolution video cannot preserve necessary information, provide accessible supporting materials or a downloadable alternative.
+
+[^adaptive-streaming]: [HTTP Live Streaming](https://developer.apple.com/documentation/http-live-streaming "Apple Developer Documentation. HTTP Live Streaming dynamically adapts playback to changing network conditions by offering multiple stream variants.")
+
+[^stream-quality]: [Video stream quality impacts viewer behaviour](https://doi.org/10.1109/TNET.2013.2281542 "Krishnan, S. S., & Sitaraman, R. K. (2013). Video Stream Quality Impacts Viewer Behavior: Inferring Causality Using Quasi-Experimental Designs. IEEE/ACM Transactions on Networking, 21(6), 2001–2014.")
+
+
+## Seeking is available by mouse, touch and keyboard
+
+Allow learners to move forwards and backwards through the video using mouse, touch and keyboard controls. Seeking should not depend only on dragging the timeline; provide accessible buttons or shortcuts, visible keyboard focus and a clearly communicated playback position.[^media-player], [^keyboard-access]
+
+Ensure controls have sufficiently large touch targets and can be identified and operated by assistive technologies.[^target-size]
+
+[^media-player]: [Accessible media players](https://www.w3.org/WAI/media/av/player/ "World Wide Web Consortium. Media Players. Web Accessibility Initiative.")
+
+[^keyboard-access]: [Understanding keyboard accessibility](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html "World Wide Web Consortium. Understanding Success Criterion 2.1.1: Keyboard.")
+
+[^target-size]: [Understanding target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html "World Wide Web Consortium. Understanding Success Criterion 2.5.8: Target Size (Minimum).")
+
+
+## Video is large enough for all on-screen content to remain readable
+
+Set the default player size so learners can clearly read instructional text, captions, diagrams, interface elements and controls without entering full-screen mode. The video may extend beyond the surrounding text column when its visual content requires more space.[^video-content]
+
+Keep the player responsive, preserve its aspect ratio and avoid horizontal page scrolling on smaller screens. Test readability across supported viewport sizes and provide full-screen viewing or accessible alternatives for complex visuals.[^reflow], [^player-scaling]
+
+[^video-content]: [Audio and video content accessibility](https://www.w3.org/WAI/media/av/av-content/ "World Wide Web Consortium. Audio Content and Video Content. Web Accessibility Initiative.")
+
+[^reflow]: [Understanding reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html "World Wide Web Consortium. Understanding Success Criterion 1.4.10: Reflow.")
+
+[^player-scaling]: [Media accessibility user requirements](https://www.w3.org/TR/media-accessibility-reqs/ "World Wide Web Consortium. Media Accessibility User Requirements, including support for resizing media while preserving its aspect ratio.")
 
 ## Full-screen playback is available
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+Allow learners to enlarge the video to full screen when they need to inspect text, diagrams, interfaces or demonstrations. Captions, audio options and playback controls must remain available and accessible by keyboard and assistive technologies in full-screen mode.[^media-accessibility], [^accessible-player]
 
-## All the mentioned above are available on mobile platforms (iOS, Android)
+[^media-accessibility]: [Media accessibility user requirements](https://www.w3.org/TR/media-accessibility-reqs/ "World Wide Web Consortium. Media Accessibility User Requirements, including support for scaling a media player up to full screen.")
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+[^accessible-player]: [Accessible media players](https://www.w3.org/WAI/media/av/player/ "World Wide Web Consortium. Media Players. Web Accessibility Initiative.")
 
-## Resuming playback from the point students left
+## All video interactions are tested on mobile and touch screens
 
-This placeholder description is intentionally long enough to test the two-line preview, collapsed state, and expanded presentation in the pattern renderer. It will be replaced with reviewed guidance during editorial development.
+Test playback, seeking, captions, chapters, speed, quality and full-screen controls on supported mobile devices in both portrait and landscape orientations. Ensure controls remain visible, responsive and operable by touch without requiring precise gestures.[^mobile-accessibility]
+
+Provide sufficiently large touch targets, prevent controls from obscuring essential content and verify equivalent functionality across current iOS and Android browsers.[^target-size]
+
+[^mobile-accessibility]: [Mobile accessibility guidance](https://www.w3.org/WAI/standards-guidelines/mobile/ "World Wide Web Consortium. Mobile Accessibility: How WCAG 2.0 and Other W3C/WAI Guidelines Apply to Mobile.")
+
+## Playback can resume from where the learner stopped
+
+Save the learner’s latest playback position and offer to resume from it when they return, while preserving the option to restart the video. This supports educational videos that learners watch across multiple sessions.[^multiple-sessions]
+
+For longer videos, consider resuming slightly before the saved position or at the beginning of the current chapter to restore context. Keep saved progress synchronized across devices where learners are signed in, and reset or migrate it when the video is substantially revised.
+
+[^multiple-sessions]: [Educational video engagement across multiple sessions](https://doi.org/10.1016/j.compedu.2024.105148 "Parker, M. J., Bunch, M., & Pike, A. (2024). Is Anybody Watching: A Multi-factor Motivational Framework for Educational Video Engagement. Computers & Education, 222, 105148.")
+
+## Playback preferences are saved and applied across videos
+
+Preserve the learner’s selected captions, audio or subtitle language, playback speed, volume or mute state, and autoplay preference across videos and sessions where the browser and device permit it. For signed-in learners, synchronise relevant preferences across devices when appropriate.[^media-accessibility]
+
+Apply only settings supported by the next video, provide an easy way to change or reset them, and keep autoplay opt-in rather than enabling it by default.[^autoplay]
+
+[^autoplay]: [HTML media autoplay guidance](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/autoplay "MDN Web Docs. HTMLMediaElement: autoplay property. Autoplay with audio should generally be avoided and offered as an explicit user preference.")
+
+## The paused state clearly supports continued viewing
+
+When playback is paused, preserve the current frame and position, show accurate progress, and make a clear, accessible **Continue watching** action prominent. Where useful, identify the current chapter or next section so learners can quickly recover context and resume.[^task-resumption]
+
+Use neutral encouragement rather than autoplay, countdowns, guilt-based messages or misleading progress cues. Progress feedback can support continuation when it matches learners’ expectations, but may increase abandonment when progress appears slower than expected.[^progress-feedback]
+
+[^task-resumption]: [Interruption, recall and resumption](https://doi.org/10.1057/s41599-025-05000-w "Ghibellini, R., & Meier, B. (2025). Interruption, Recall and Resumption: A Meta-analysis of the Zeigarnik and Ovsiankina Effects. Humanities and Social Sciences Communications, 12, Article 962.")
+
+[^progress-feedback]: [The impact of progress indicators on task completion](https://doi.org/10.1016/j.intcom.2010.03.001 "Conrad, F. G., Couper, M. P., Tourangeau, R., & Peytchev, A. (2010). The Impact of Progress Indicators on Task Completion. Interacting with Computers, 22(5), 417–427.")
+
+## Watched videos are clearly distinguished
+
+Mark watched videos with a persistent visual status, such as a **Watched** label, checkmark or progress indicator. Keep the video title and thumbnail recognisable, and do not use colour as the only way to communicate the status.[^use-of-colour]
+
+Expose the watched state programmatically so it can be identified by screen readers and other assistive technologies.[^status-messages]
+
+[^use-of-colour]: [Understanding use of colour](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color "World Wide Web Consortium. Understanding Success Criterion 1.4.1: Use of Color.")
+
+[^status-messages]: [Understanding status messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages "World Wide Web Consortium. Understanding Success Criterion 4.1.3: Status Messages.")
+
+## The next learning activity is clearly emphasised after video completion
+
+After the video ends, present a prominent next action, such as watching the next video, reviewing key takeaways, opening support materials or completing a retrieval, reflection or application activity.[^active-learning]
+
+Keep the action accessible and relevant to the learning sequence. Do not rely on autoplay or automatically move learners away from the completed video before they can review it.[^focus-order]
+
+[^focus-order]: [Understanding focus order](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html "World Wide Web Consortium. Understanding Success Criterion 2.4.3: Focus Order.")
+
 {% /pattern-list %}
 
-{% pattern-list role="list" layer="system" %}
+{% pattern-list role="checklist" layer="system" %}
 # System design
 
-## The video is authorized to be used on your platform and secured from unauthorized access
+## The video is protected from unauthorised access
 
-This placeholder description tests the full-content Card rendering used for a list rather than a selectable checklist. It will be replaced with reviewed system guidance during editorial development.
+Restrict access according to the intended audience using authentication and role-based permissions. Verify authorisation for every protected request, including video streams, files, captions and downloads, and prevent unintended public indexing or direct-link access.[^access-control]
 
-## Video is easily accessible globally (CDN works properly)
+Configure equivalent restrictions in any external video-hosting service used by the platform. For example, Vimeo may require viewing and domain-level embed privacy settings, while YouTube visibility settings have different limitations: an unlisted video can be accessed by anyone with its link, whereas private videos require explicitly authorised Google accounts.[^vimeo-privacy], [^youtube-privacy]
 
-This placeholder description tests the full-content Card rendering used for a list rather than a selectable checklist. It will be replaced with reviewed system guidance during editorial development.
+[^access-control]: [Authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html "OWASP Foundation. Authorization Cheat Sheet.")
 
-## Video embedded from public platforms does not show further recommendations
+[^vimeo-privacy]: [Vimeo video privacy settings](https://help.vimeo.com/hc/en-us/articles/12426199699985-About-video-privacy-settings "Vimeo Help Center. About Video Privacy Settings.")
 
-This placeholder description tests the full-content Card rendering used for a list rather than a selectable checklist. It will be replaced with reviewed system guidance during editorial development.
+[^youtube-privacy]: [YouTube video privacy settings](https://support.google.com/youtube/answer/157177 "YouTube Help. Change Video Privacy Settings.")
 
-## Completion of the video is tracked and detailed analytics is available: per user and aggregated
+## Video is reliably accessible in all target regions
 
-This placeholder description tests the full-content Card rendering used for a list rather than a selectable checklist. It will be replaced with reviewed system guidance during editorial development.
+Deliver the video through a CDN (contnet delivery netwoek) or hosting service that provides stable playback in every intended region. Test availability, start-up time, buffering, video quality, captions and audio tracks from representative locations and network conditions.[^cdn-delivery]
+
+Verify regional availability separately for external platforms such as YouTube or Vimeo, as videos or platform services may be restricted or unavailable in particular countries. Where reliable access cannot be guaranteed, provide an alternative host or accessible fallback.[^youtube-regions], [^vimeo-regions]
+
+[^cdn-delivery]: [How CloudFront delivers content](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowCloudFrontWorks.html "Amazon Web Services. How CloudFront Delivers Content.")
+
+[^youtube-regions]: [Video is not available in my country or region](https://support.google.com/youtube/answer/92571 "YouTube Help. Video Isn't Available in My Country/Region.")
+
+[^vimeo-regions]: [Vimeo availability and regional restrictions](https://help.vimeo.com/hc/en-us/articles/18332106845329-Vimeo-availability-and-regional-restrictions "Vimeo Help Center. Vimeo Availability and Regional Restrictions.")
+
+## Post-playback recommendations are disabled or controlled
+
+Configure embedded players so the video ends without unrelated recommendations, advertising or links that distract learners from the activity. Where supported, use an empty end screen or limit suggested content to an approved channel, playlist or collection.[^vimeo-end-screens]
+
+Check the current limitations of each public platform. YouTube does not allow related videos to be disabled completely: `rel=0` only limits recommendations to videos from the same channel. Use another hosting solution when complete control of the post-playback experience is required.[^youtube-recommendations]
+
+[^vimeo-end-screens]: [Vimeo end-screen settings](https://help.vimeo.com/hc/en-us/articles/12426231346449-About-end-screens "Vimeo Help Center. About End Screens.")
+
+[^youtube-recommendations]: [YouTube embedded-player parameters](https://developers.google.com/youtube/player_parameters#rel "Google for Developers. YouTube Embedded Players and Player Parameters: rel.")
+
+## Video completion and viewing analytics are available
+
+Track a clearly defined completion event for each learner and provide aggregated analytics for the target audience. Where useful, report starts, viewing progress, completions, repeated sections, drop-off points and playback errors.[^learning-analytics]
+
+Treat completion as evidence of viewing behaviour — not attention, understanding or mastery. Collect identifiable analytics only for defined purposes, restrict access and retention, and use aggregated or pseudonymised data whenever individual records are unnecessary.[^analytics-limits], [^data-protection]
+
+[^learning-analytics]: [Caliper Analytics](https://www.1edtech.org/standards/caliper "1EdTech Consortium. Caliper Analytics: A Standard for Capturing and Exchanging Learning Activity and Product-Usage Data.")
+
+[^analytics-limits]: [Making sense of video analytics](https://doi.org/10.19173/irrodl.v16i1.1976 "Giannakos, M. N., Chorianopoulos, K., & Chrisochoides, N. (2015). Making Sense of Video Analytics: Lessons Learned from Clickstream Interactions, Attitudes, and Learning Outcomes in a Video-Assisted Course. International Review of Research in Open and Distributed Learning, 16(1), 260–283.")
+
+[^data-protection]: [Principles of the GDPR](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en "European Commission. Principles of the General Data Protection Regulation, including purpose limitation, data minimisation, storage limitation and security.")
+
+## Native mobile playback is tested and preserves intended interactions
+
+Test video playback with native iOS and Android players, including inline and full-screen modes. Verify that entering, leaving or switching playback modes does not lose progress, dismiss unsaved work, reload the page or disrupt surrounding activities, instructions and navigation.[^ios-playback], [^android-playback]
+
+Ensure that captions, audio tracks, playback controls and accessibility features remain available. When native playback temporarily hides surrounding content, learners must be able to return to the same content state and continue the activity.[^media-requirements]
+
+[^ios-playback]: [Delivering video content for Safari](https://developer.apple.com/documentation/webkit/delivering-video-content-for-safari "Apple Developer Documentation. Delivering Video Content for Safari, including inline and full-screen playback behaviour on iOS.")
+
+[^android-playback]: [Create a media player using Media3 ExoPlayer](https://developer.android.com/media/implement/playback-app "Android Developers. Create a Basic Media Player App Using Media3 ExoPlayer.")
+
+[^media-requirements]: [Media accessibility user requirements](https://www.w3.org/TR/media-accessibility-reqs/ "World Wide Web Consortium. Media Accessibility User Requirements, including native playback controls and accessibility functionality on mobile devices.")
+
+## Content language is correctly identified in HTML
+
+Set the primary language of each page with a valid BCP 47 `lang` attribute on the root `<html>` element. This enables screen readers and other assistive technologies to apply the correct pronunciation and language rules.[^page-language]
+
+When a passage or interface element uses a different language, set `lang` on the nearest containing element. Do not mark proper names, technical terms or commonly adopted foreign words unless a language change is needed for correct interpretation.[^language-parts]
+
+[^page-language]: [Using the language attribute on the HTML element](https://www.w3.org/WAI/WCAG22/Techniques/html/H57.html "World Wide Web Consortium. Technique H57: Using the lang Attribute on the HTML Element.")
+
+[^language-parts]: [Using language attributes to identify language changes](https://www.w3.org/WAI/WCAG22/Techniques/html/H58 "World Wide Web Consortium. Technique H58: Using Language Attributes to Identify Changes in the Human Language.")
+
 {% /pattern-list %}
 
 {% pattern-list role="list" layer="relations" %}
