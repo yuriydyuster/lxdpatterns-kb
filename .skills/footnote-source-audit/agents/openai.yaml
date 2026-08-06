@@ -1,0 +1,4 @@
+interface:
+  display_name: "Footnote Source Audit"
+  short_description: "Audit and normalize source footnotes"
+  default_prompt: "Use $footnote-source-audit to check and normalize the source footnotes in this document."
