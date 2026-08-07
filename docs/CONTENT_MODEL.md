@@ -141,6 +141,8 @@ The publishing application:
 
 A source definition should be written on one line. Do not create a separate Sources heading or checklist in the semantic format.
 
+Before checking or normalising source links, always use the repository-local [Footnote Source Audit skill](../.skills/footnote-source-audit/SKILL.md). It checks structural validity and source-to-claim relevance while preserving instructional prose: it may edit footnote definition lines and inline marker identifiers only. A mismatch between a cited claim and its source, including any source-link correction, must be reported in chat rather than silently resolved by changing the pattern text.
+
 ## 8. Relations model
 
 Related patterns use a `relations` wrapper plus reference-style links:

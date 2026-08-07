@@ -113,6 +113,8 @@ The website extracts all definitions in document order and builds the Resources 
 
 Prefer primary research, recognised standards, official documentation, and reputable scholarly or professional sources. Distinguish evidence-supported findings from practitioner recommendations, examples, and project-specific editorial judgement.
 
+Always use [`.skills/footnote-source-audit/SKILL.md`](./.skills/footnote-source-audit/SKILL.md) before checking or normalising source links in an `.mdoc` document. It validates definitions and their in-text uses, and limits edits to footnote definition lines and inline marker identifiers. Report any source-to-claim mismatch and source-link correction in chat; never silently revise instructional prose to make a citation fit.
+
 ## Related patterns
 
 Use a `relations` list and reference-style links:
@@ -173,6 +175,7 @@ Before finalising a change, verify that:
 - wrappers are closed and not nested;
 - internal relation definitions are present and use the documented form;
 - source footnotes are defined, accurate, and reachable;
+- source-link checks and normalisation used `.skills/footnote-source-audit`;
 - migrated wording has not been silently changed;
 - no renderer-specific syntax has entered the content model;
 - the document remains understandable as source Markdown.

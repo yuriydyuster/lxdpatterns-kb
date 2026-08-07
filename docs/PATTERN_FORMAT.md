@@ -200,6 +200,8 @@ The website collects definitions in document order, assigns numbers, removes def
 
 Do not create a separate semantic Sources section.
 
+Always use the repository-local [Footnote Source Audit skill](../.skills/footnote-source-audit/SKILL.md) to check or normalise source links. It may edit footnote definition lines and inline marker identifiers only; it must report any source-to-claim mismatch and source-link correction in chat and must never silently change instructional prose.
+
 ## Related patterns
 
 Use a `relations` wrapper and reference-style links:
