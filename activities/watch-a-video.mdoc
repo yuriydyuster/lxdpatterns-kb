@@ -175,6 +175,20 @@ Ensure controls have sufficiently large touch targets and can be identified and 
 
 [^target-size]: [Understanding target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html "World Wide Web Consortium (W3C). (2026). Understanding Success Criterion 2.5.8: Target Size (Minimum). Web Content Accessibility Guidelines (WCAG) 2.2. This guidance supports sufficiently large touch targets.")
 
+For video, the progress indicator should double as an accessible seek control: current position and duration should be understandable visually and to assistive technologies. ([W3C][1])
+
+## Watching progress is clearly visualised
+
+Show the learner’s current position and overall progress throughout playback using a visible timeline or progress indicator, with elapsed and total time available where appropriate. Make the current position understandable without relying on colour alone.[^seek-progress]
+
+When the progress indicator also supports seeking, make it operable by mouse, touch and keyboard and expose the current position in a meaningful time format to assistive technologies.[^accessible-seek]
+
+[^seek-progress]: [The impact of progress indicators on task completion](https://doi.org/10.1016/j.intcom.2010.03.001 "Conrad, F. G., Couper, M. P., Tourangeau, R., & Peytchev, A. (2010). The Impact of Progress Indicators on Task Completion. Interacting with Computers, 22(5), 417–427.")
+
+[^accessible-seek]: [Media seek slider example](https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-seek/ "World Wide Web Consortium. ARIA Authoring Practices Guide: Media Seek Slider Example. Guidance on communicating current media position and enabling keyboard-accessible seeking.")
+
+[1]: https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-seek/?utm_source=chatgpt.com "Media Seek Slider Example | APG | WAI | W3C"
+
 
 ## Video is large enough for all on-screen content to remain readable
 
@@ -191,6 +205,18 @@ Keep the player responsive, preserve its aspect ratio and avoid horizontal page 
 Allow learners to enlarge the video to full screen when they need to inspect text, diagrams, interfaces or demonstrations. Captions, audio options and playback controls must remain available and accessible by keyboard and assistive technologies in full-screen mode.[^media-accessibility][^media-player]
 
 [^media-accessibility]: [Media accessibility user requirements](https://www.w3.org/TR/media-accessibility-reqs/ "World Wide Web Consortium (W3C) Protocols and Formats Working Group. (2015). Media Accessibility User Requirements. W3C Working Group Note. This note supports keyboard-operable controls, time-scale modification, captions, descriptions, and scalable accessible media.")
+
+
+## The video transcript can be searched and used for navigation
+
+Provide a searchable, synchronised transcript that lets learners find words, phrases or topics and jump directly to the corresponding point in the video. Highlight the current transcript passage during playback and allow selecting text or timestamps to seek within the video.[^interactive-transcript]
+
+Keep transcript navigation operable by keyboard and assistive technologies, and use headings or other meaningful structure for longer transcripts so learners can quickly locate relevant sections.[^transcript-navigation]
+
+[^interactive-transcript]: [Interactive transcripts in accessible media players](https://www.w3.org/WAI/media/av/player/ "World Wide Web Consortium. Media Players. Web Accessibility Initiative. Interactive transcripts can highlight text as it is spoken and allow users to select transcript text to navigate directly to the corresponding point in the video.")
+
+[^transcript-navigation]: [Making transcripts more useful](https://www.w3.org/WAI/media/av/transcripts/ "World Wide Web Consortium. Transcripts. Web Accessibility Initiative. Guidance recommends adding headings, links and timestamps where they improve navigation and usability.")
+
 
 ## All video interactions are tested on mobile and touch screens
 
